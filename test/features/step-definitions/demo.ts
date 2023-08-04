@@ -26,3 +26,16 @@ Then(/^URL should  match (.*)$/, async function (ExpectedURL) {
     chai.expect(url).to.equal(ExpectedURL)
 })
 
+//web interactions
+Given(/^A web page is opened$/, async function () {
+    await browser.url("/inputs")
+    await browser.setTimeout({implicit:15000, pageLoad:10000})
+    await browser.maximizeWindow()
+
+})
+
+When(/^Perform web interaction$/, async function () {
+    let ele = await $(`[type=number]`)
+    await ele.setValue("12345")
+    browser.pause(3000)
+})
