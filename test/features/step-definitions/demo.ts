@@ -28,14 +28,43 @@ Then(/^URL should  match (.*)$/, async function (ExpectedURL) {
 
 //web interactions
 Given(/^A web page is opened$/, async function () {
-    await browser.url("/inputs")
+    await browser.url("/javascript_alerts")
     await browser.setTimeout({implicit:15000, pageLoad:10000})
     await browser.maximizeWindow()
 
 })
 
-When(/^Perform web interaction$/, async function () {
-    let ele = await $(`[type=number]`)
-    await ele.setValue("12345")
-    browser.pause(3000)
+ When(/^Perform web interaction$/, async function () {
+//inputs
+//     let ele = await $(`[type=number]`)
+//     await ele.setValue("12345")
+//     browser.pause(3000)
+ 
+//dropdown
+// let ele = await $('//select/option[@selected="selected"]')
+// let val = await ele.getText()
+// chai.expect(val).to.equal("Please select an option")
+
+//checkboxes
+// let ele = await $('//form[@id="checkboxes"]/input[1]')
+// await ele.click()
+
+//windows handling
+// await $('=Click Here').click()
+// await $('=Elemental Selenium').click()
+// let currentWinTitle = await browser.getTitle()
+// console.log(`>> currentWinTitle :${currentWinTitle}`);
+
+//Alerts&Pop ups 
+await $(`button=Click for JS Alert`).click()
+if(await browser.isAlertOpen()) {
+let alertText = await browser.getAlertText()
+console.log(`>> alertText: ${alertText}`);
+//await browser.sendAlertText(`Hello JS Prompt...`)
+await browser.acceptAlert()
+await browser.pause(2000)
+}
+
+
+//await browser.debug()
 })
